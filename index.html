@@ -1,0 +1,757 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DieuBank - Bảng điều khiển IT GRC Tích hợp</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div id="app-container">
+        <!-- THANH ĐIỀU HƯỚNG BÊN CẠNH (SIDEBAR) -->
+        <aside>
+            <div class="brand-section">
+                <div class="brand-logo">DB</div>
+                <div>
+                    <div class="brand-name">DieuBank</div>
+                    <div class="brand-subtitle">IT GRC Dashboard</div>
+                </div>
+            </div>
+
+            <ul class="nav-menu">
+                <li class="nav-item active" data-tab="dashboard">
+                    <span class="nav-item-icon">📊</span>
+                    <span>Bảng Điều Hành</span>
+                </li>
+                <li class="nav-item" data-tab="compliance">
+                    <span class="nav-item-icon">⚖️</span>
+                    <span>Ma Trận Tuân Thủ</span>
+                </li>
+                <li class="nav-item" data-tab="risks">
+                    <span class="nav-item-icon">⚠️</span>
+                    <span>Danh Mục Rủi Ro</span>
+                </li>
+                <li class="nav-item" data-tab="secops">
+                    <span class="nav-item-icon">🛡️</span>
+                    <span>Vận Hành SOC</span>
+                </li>
+                <li class="nav-item" data-tab="incident">
+                    <span class="nav-item-icon">🚨</span>
+                    <span>Kịch Bản Sự Cố</span>
+                </li>
+                <li class="nav-item" data-tab="audit">
+                    <span class="nav-item-icon">🔍</span>
+                    <span>Kiểm Toán & CAP</span>
+                </li>
+                <li class="nav-item" data-tab="interview">
+                    <span class="nav-item-icon">💼</span>
+                    <span>Chuẩn Bị Phỏng Vấn</span>
+                </li>
+            </ul>
+
+            <div class="sidebar-footer">
+                <div>Ngân hàng DieuBank (DB)</div>
+                <div style="margin-top: 4px; opacity:0.6">Nền tảng GRC v1.0.0</div>
+            </div>
+        </aside>
+
+        <!-- KHU VỰC HIỂN THỊ NỘI DUNG CHÍNH -->
+        <main>
+
+            <!-- TAB 1: BẢNG ĐIỀU HÀNH CHUNG -->
+            <div id="dashboard" class="tab-content active">
+                <div class="section-header">
+                    <h1>Bảng Quản Trị IT GRC Tập Trung</h1>
+                    <div class="section-desc">Giám sát trạng thái tuân thủ pháp lý, khẩu vị rủi ro và các chỉ số vận
+                        hành của DieuBank.</div>
+                </div>
+
+                <!-- Lưới hiển thị chỉ số chính -->
+                <div class="grid-4">
+                    <div class="card stat-box">
+                        <span class="card-title">Điểm Tuân Thủ</span>
+                        <span class="stat-value stat-value-emerald">93.75%</span>
+                        <span class="stat-desc">Mục tiêu: 100% Sẵn sàng Đánh giá</span>
+                    </div>
+                    <div class="card stat-box">
+                        <span class="card-title">Rủi Ro Đã Xử Lý</span>
+                        <span class="stat-value stat-value-cyan">30 / 30</span>
+                        <span class="stat-desc">0 Rủi ro Nghiêm trọng tồn đọng</span>
+                    </div>
+                    <div class="card stat-box">
+                        <span class="card-title">Log thu nhận SOC</span>
+                        <span class="stat-value stat-value-cyan">420 GB/ngày</span>
+                        <span class="stat-desc">Giám sát 100% tài sản trọng yếu</span>
+                    </div>
+                    <div class="card stat-box">
+                        <span class="card-title">CAP Kiểm toán Mở</span>
+                        <span class="stat-value stat-value-coral">10 Đang xử lý</span>
+                        <span class="stat-desc">Đang bám sát SLA khắc phục</span>
+                    </div>
+                </div>
+
+                <!-- Lưới hiển thị biểu đồ SVG -->
+                <div class="grid-2">
+                    <div class="card">
+                        <h3 class="card-title">Trạng thái Sẵn sàng Đánh giá <span>ISO / TT 09 / Nghị định 13</span></h3>
+                        <div id="radial-chart-container"></div>
+                        <div
+                            style="display:flex; justify-content:space-around; font-size:13px; color:var(--text-secondary); text-align:center; margin-top:10px">
+                            <div>
+                                <div style="font-weight:700; color:var(--primary)">95%</div>
+                                <div>ISO 27001</div>
+                            </div>
+                            <div>
+                                <div style="font-weight:700; color:var(--success)">92%</div>
+                                <div>Thông tư 09</div>
+                            </div>
+                            <div>
+                                <div style="font-weight:700; color:var(--warning)">88%</div>
+                                <div>Nghị định 13</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <h3 class="card-title">Xu hướng Rủi ro Vận hành CNTT <span>6 Tháng gần nhất</span></h3>
+                        <div id="trend-chart-container"></div>
+                    </div>
+                </div>
+
+                <!-- Bảng hiển thị Thiết bị và Quyền Sở Hữu -->
+                <div class="card">
+                    <h3 class="card-title">Trạng thái Thiết bị Trọng yếu & Quyền Sở Hữu</h3>
+                    <div class="table-wrapper">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Mã Thiết bị</th>
+                                    <th>Tên Thiết bị</th>
+                                    <th>Loại Tài sản</th>
+                                    <th>Chủ Nghiệp vụ (Business Owner)</th>
+                                    <th>Thủ thư CNTT (Custodian)</th>
+                                    <th>Điểm C - I - A</th>
+                                    <th>Mức Độ Trọng Yếu</th>
+                                    <th>Phân Loại Dữ Liệu</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="font-semibold text-primary">AST-01</td>
+                                    <td class="font-semibold">Core Banking (Temenos T24)</td>
+                                    <td>Phần mềm</td>
+                                    <td>Khối Vận hành</td>
+                                    <td>Nhóm IT Core T24</td>
+                                    <td>3 / 3 / 3</td>
+                                    <td><span class="badge badge-danger">Trọng yếu</span></td>
+                                    <td><span class="badge badge-warning">Giới hạn</span></td>
+                                </tr>
+                                <tr>
+                                    <td class="font-semibold text-primary">AST-02</td>
+                                    <td class="font-semibold">Database Khách hàng (Oracle)</td>
+                                    <td>Dữ liệu</td>
+                                    <td>Khối Bán lẻ</td>
+                                    <td>Trưởng nhóm DBA</td>
+                                    <td>3 / 3 / 3</td>
+                                    <td><span class="badge badge-danger">Trọng yếu</span></td>
+                                    <td><span class="badge badge-warning">Giới hạn</span></td>
+                                </tr>
+                                <tr>
+                                    <td class="font-semibold text-primary">AST-03</td>
+                                    <td class="font-semibold">SWIFT Alliance Gateway</td>
+                                    <td>Mạng / Phần cứng</td>
+                                    <td>Khối Nguồn vốn</td>
+                                    <td>Quản trị viên SWIFT</td>
+                                    <td>3 / 3 / 3</td>
+                                    <td><span class="badge badge-danger">Trọng yếu</span></td>
+                                    <td><span class="badge badge-danger">Rất Giới hạn</span></td>
+                                </tr>
+                                <tr>
+                                    <td class="font-semibold text-primary">AST-04</td>
+                                    <td class="font-semibold">Dịch vụ Active Directory</td>
+                                    <td>Hạ tầng</td>
+                                    <td>Giám đốc Công nghệ (CIO)</td>
+                                    <td>Trưởng nhóm Windows System</td>
+                                    <td>3 / 3 / 3</td>
+                                    <td><span class="badge badge-danger">Trọng yếu</span></td>
+                                    <td><span class="badge badge-info">Mật</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB 2: MA TRẬN TUÂN THỦ -->
+            <div id="compliance" class="tab-content">
+                <div class="section-header">
+                    <h1>Ma Trận Ánh Xạ & Chi Tiết Tiêu Chuẩn Tuân Thủ</h1>
+                    <div class="section-desc">Tìm hiểu chi tiết các quy định pháp lý và xem bản đồ ánh xạ 50 kiểm soát
+                        an ninh tích hợp tại DieuBank.</div>
+                </div>
+
+                <!-- SUB-TABS NAVIGATION -->
+                <div
+                    style="display: flex; gap: 12px; margin-bottom: 24px; border-bottom: 1px solid var(--border); padding-bottom: 12px;">
+                    <button class="subtab-btn active" id="btn-subtab-details"
+                        onclick="switchComplianceSubTab('details')">📚 Chi tiết các Quy định</button>
+                    <button class="subtab-btn" id="btn-subtab-matrix" onclick="switchComplianceSubTab('matrix')">🗺️ Ma
+                        trận Ánh xạ Tích hợp</button>
+                </div>
+
+                <!-- SUB-TAB 1: CHI TIẾT CÁC QUY ĐỊNH -->
+                <div id="compliance-subtab-details" class="compliance-subtab-content">
+                    <!-- Sẽ được render tự động qua JS -->
+                </div>
+
+                <!-- SUB-TAB 2: MA TRẬN ÁNH XẠ TÍCH HỢP -->
+                <div id="compliance-subtab-matrix" class="compliance-subtab-content" style="display: none;">
+                    <div class="card">
+                        <!-- Khung Tìm kiếm và Lọc -->
+                        <div style="display:flex; justify-content:space-between; gap:20px; align-items:flex-start">
+                            <div class="filter-btn-group">
+                                <button class="filter-btn active" data-filter="all">Tất cả Tiêu chuẩn</button>
+                                <button class="filter-btn" data-filter="c09">Thông tư 09/2020</button>
+                                <button class="filter-btn" data-filter="d13">Nghị định 13 (PDPD)</button>
+                                <button class="filter-btn" data-filter="csl">Luật An ninh mạng</button>
+                            </div>
+                            <div style="width:300px">
+                                <input type="text" id="compliance-search" class="search-input"
+                                    placeholder="Tìm kiểm soát, chủ sở hữu, bằng chứng...">
+                            </div>
+                        </div>
+
+                        <!-- Bảng Ma Trận -->
+                        <div class="table-wrapper">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th style="min-width: 180px;">Kiểm soát ISO 27001</th>
+                                        <th>Miền Kiểm soát</th>
+                                        <th style="min-width: 250px;">Hướng dẫn ISO 27002</th>
+                                        <th>Thông tư 09/2020</th>
+                                        <th>Nghị định 13/2023</th>
+                                        <th>Luật An ninh mạng</th>
+                                        <th style="min-width: 200px;">Bằng chứng Đánh giá Yêu cầu</th>
+                                        <th>Chủ quản</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="compliance-tbody">
+                                    <!-- Trình JS render tự động dữ liệu -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB 3: DANH MỤC RỦI RO -->
+            <div id="risks" class="tab-content">
+                <div class="section-header">
+                    <h1>Quản Lý Rủi Ro Công Nghệ (ISO 27005)</h1>
+                    <div class="section-desc">Đánh giá rủi ro công nghệ chi tiết, đo lường điểm rủi ro tiềm tàng
+                        (Inherent) và rủi ro còn lại (Residual).</div>
+                </div>
+
+                <div class="grid-2">
+                    <!-- Bản đồ nhiệt -->
+                    <div class="card" style="text-align: center;">
+                        <h3 class="card-title">Bản Đồ Nhiệt Rủi Ro Tiềm Tàng <span>Click vào từng ô để lọc danh sách bên
+                                dưới</span></h3>
+                        <div style="margin: 20px 0;">
+                            <div id="risk-matrix-grid"></div>
+                        </div>
+                        <div style="font-size:12px; color:var(--text-secondary)">Trục X: Tác động (1-5) | Trục Y: Khả
+                            năng xảy ra (1-5)</div>
+                    </div>
+
+                    <!-- Khẩu vị rủi ro -->
+                    <div class="card">
+                        <h3 class="card-title">Giới Hạn Khẩu Vị Rủi Ro & Lọc nhanh</h3>
+                        <div class="form-group">
+                            <label class="form-label">Tìm nhanh trong danh mục:</label>
+                            <input type="text" id="risk-search" class="search-input"
+                                placeholder="Tìm tài sản, kịch bản, mã rủi ro...">
+                        </div>
+                        <div style="font-size: 14px; line-height: 1.6; color: var(--text-secondary)">
+                            <p style="margin-bottom:12px"><strong>Hệ thống Core (T24 & SWIFT):</strong> Khẩu vị bằng
+                                không (Zero tolerance) đối với rủi ro mức Cao/Nghiêm trọng. Bắt buộc có kế hoạch xử lý
+                                rủi ro.</p>
+                            <p style="margin-bottom:12px"><strong>Quyền riêng tư Dữ liệu (Nghị định 13):</strong> Bắt
+                                buộc mã hóa dữ liệu nhạy cảm lưu trữ, áp dụng Data Masking trên môi trường test.</p>
+                            <p><strong>Tính sẵn sàng dịch vụ:</strong> Chấp nhận rủi ro trung bình đối với hệ thống văn
+                                phòng, thời gian RTO tối đa cho phép 24 giờ.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Bảng Danh mục Rủi ro -->
+                <div class="card">
+                    <h3 class="card-title">Sổ Đăng Ký Rủi Ro Công Nghệ (30 Kịch bản Ngân hàng)</h3>
+                    <div class="table-wrapper">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Mã</th>
+                                    <th>Tài sản Ảnh hưởng</th>
+                                    <th style="min-width:250px">Kịch bản Mối đe dọa & Điểm yếu</th>
+                                    <th>R Tiềm tàng (L x I)</th>
+                                    <th style="min-width:200px">Kiểm soát Hiện tại</th>
+                                    <th>R Còn lại (L x I)</th>
+                                    <th style="min-width:250px">Kế hoạch Khắc phục Xử lý rủi ro</th>
+                                    <th>Chủ quản</th>
+                                </tr>
+                            </thead>
+                            <tbody id="risks-tbody">
+                                <!-- Trình JS render tự động dữ liệu -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB 4: VẬN HÀNH SOC & SIEM -->
+            <div id="secops" class="tab-content">
+                <div class="section-header">
+                    <h1>Giám Sát An Ninh mạng (SOC) & SIEM</h1>
+                    <div class="section-desc">Quản lý hiệu năng SOC, theo dõi KRI rủi ro và 20 quy tắc dò tìm sự cố an
+                        ninh mạng.</div>
+                </div>
+
+                <!-- KPIs & KRIs -->
+                <div class="grid-2">
+                    <div class="card">
+                        <h3 class="card-title">10 Chỉ Số Hiệu Năng Vận Hành (KPIs)</h3>
+                        <div id="kpi-grid" style="display:grid; grid-template-columns: 1fr 1fr; gap:16px">
+                            <!-- JS tự động render -->
+                        </div>
+                    </div>
+                    <div class="card">
+                        <h3 class="card-title">10 Chỉ Số Chỉ Báo Rủi Ro (KRIs)</h3>
+                        <div id="kri-grid" style="display:grid; grid-template-columns: 1fr 1fr; gap:16px">
+                            <!-- JS tự động render -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Quy tắc SIEM -->
+                <div class="card">
+                    <h3 class="card-title">20 Quy Tắc Dò Tìm Splunk SIEM Active</h3>
+                    <div id="siem-rules-container">
+                        <!-- JS tự động render -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB 5: KỊCH BẢN PHẢN ỨNG SỰ CỐ -->
+            <div id="incident" class="tab-content">
+                <div class="section-header">
+                    <h1>Kịch Bản Phản Ứng Ứng Cứu Sự Cố</h1>
+                    <div class="section-desc">Kịch bản ứng cứu từng bước (NIST bám sát) kết hợp bộ mô phỏng SoD phê
+                        duyệt quyền hạn.</div>
+                </div>
+
+                <div class="grid-2">
+                    <!-- Kịch bản phản ứng -->
+                    <div class="card">
+                        <h3 class="card-title">Quy Trình Ứng Cứu Sự Cố Từng Bước</h3>
+                        <div class="playbook-container">
+                            <ul class="playbook-menu">
+                                <li class="playbook-menu-item active" data-playbook="ransomware">Kịch bản Ransomware
+                                </li>
+                                <li class="playbook-menu-item" data-playbook="pdpd">Rò rỉ NĐ 13 (PII)</li>
+                                <li class="playbook-menu-item" data-playbook="insider">Gián điệp Nội bộ</li>
+                            </ul>
+                            <div class="playbook-steps" id="playbook-steps-container">
+                                <!-- JS tự động render -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Mẫu mô phỏng phân quyền -->
+                    <div class="card">
+                        <h3 class="card-title">Bộ Mô Phỏng Phê Duyệt Cấp Quyền Hạn <span>Kiểm tra xung đột SoD</span>
+                        </h3>
+                        <form id="mock-uarf">
+                            <div class="form-group">
+                                <label class="form-label">Họ tên nhân viên yêu cầu</label>
+                                <input type="text" id="uarf-name" class="form-input-text" placeholder="Nguyễn Văn A"
+                                    required>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Hệ thống Đích</label>
+                                <select id="uarf-system" class="form-select">
+                                    <option value="Core Banking (T24)">Core Banking (Temenos T24)</option>
+                                    <option value="Active Directory">Active Directory (AD)</option>
+                                    <option value="Customer Data Warehouse">Kho dữ liệu (DWH)</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Vai trò / Quyền hạn đề xuất</label>
+                                <select id="uarf-role" class="form-select">
+                                    <option value="Read-only Audit">Tài khoản Kiểm toán Chỉ đọc</option>
+                                    <option value="Customer Service Teller">Giao dịch viên chuẩn</option>
+                                    <option value="Developer Admin">Nhà phát triển có quyền Ghi (Admin)</option>
+                                </select>
+                            </div>
+                            <button type="submit" class="btn btn-primary" style="width:100%">Gửi yêu cầu Cấp
+                                quyền</button>
+                        </form>
+
+                        <div id="form-response-box" style="display:none;"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB 6: KIỂM TOÁN & CAP -->
+            <div id="audit" class="tab-content">
+                <div class="section-header">
+                    <h1>Trung Tâm Quản Lý Kiểm Toán & CAP</h1>
+                    <div class="section-desc">Theo dõi các lỗi kiểm toán nội bộ/độc lập, phân tích nguyên nhân gốc rễ
+                        (RCA) và quản lý tiến độ thực hiện CAP.</div>
+                </div>
+
+                <div class="card">
+                    <h3 class="card-title">Các Lỗi Kiểm Toán Đang Mở (Chu kỳ Kiểm toán Q2 2026)</h3>
+                    <div class="accordion">
+
+                        <!-- Lỗi 1 -->
+                        <div class="accordion-item">
+                            <div class="accordion-header"
+                                onclick="this.nextElementSibling.style.display = this.nextElementSibling.style.display === 'none' ? 'block' : 'none'">
+                                <span>Phát hiện 1: Tài khoản Nhà thầu thôi việc vẫn active [Mức độ: Cao]</span>
+                                <span>▼</span>
+                            </div>
+                            <div class="accordion-content" style="display:none">
+                                <p style="margin-bottom:10px"><strong>Điểm vi phạm:</strong> ISO 27001 A.6.5 (Rời mạng),
+                                    Điều 13 Thông tư 09/2020.</p>
+                                <p style="margin-bottom:10px"><strong>Mô tả thực tế:</strong> 4 tài khoản Active
+                                    Directory của các đối tác thuê ngoài kết thúc hợp đồng dự án 14 ngày trước vẫn hoạt
+                                    động, có phát sinh đăng nhập vào môi trường test.</p>
+                                <p style="margin-bottom:10px"><strong>Nguyên nhân gốc rễ (RCA):</strong> Quản lý nhà
+                                    thầu thủ công qua Excel tại phòng Mua sắm; thiếu quy trình JML tự động đồng bộ sang
+                                    IT System như nhân viên chính thức.</p>
+                                <p><strong>Kế hoạch khắc phục (CAP):</strong> Bắt buộc nhập vòng đời nhà thầu vào
+                                    Workday. Viết mã PowerShell tự động đối soát khóa tài khoản AD khi hết hạn hợp đồng.
+                                    <em>Hạn hoàn thành: 30/09/2026 | Phụ trách: Trưởng khối HR & Quản trị AD</em></p>
+                            </div>
+                        </div>
+
+                        <!-- Lỗi 2 -->
+                        <div class="accordion-item">
+                            <div class="accordion-header"
+                                onclick="this.nextElementSibling.style.display = this.nextElementSibling.style.display === 'none' ? 'block' : 'none'">
+                                <span>Phát hiện 2: Lập trình viên truy cập dữ liệu thật khách hàng [Mức độ: Cao]</span>
+                                <span>▼</span>
+                            </div>
+                            <div class="accordion-content" style="display:none">
+                                <p style="margin-bottom:10px"><strong>Điểm vi phạm:</strong> ISO 27001 A.8.11 (Che giấu
+                                    dữ liệu), Điều 26 Nghị định 13/2023.</p>
+                                <p style="margin-bottom:10px"><strong>Mô tả thực tế:</strong> Lập trình viên thực hiện
+                                    các lệnh truy vấn dữ liệu gốc không che giấu (số điện thoại, số dư) trực tiếp trên
+                                    máy chủ database replica của core T24.</p>
+                                <p style="margin-bottom:10px"><strong>Nguyên nhân gốc rễ (RCA):</strong> Tác vụ che giấu
+                                    dữ liệu tĩnh hàng đêm bị lỗi do thay đổi cấu trúc bảng. DBA cấp quyền tạm bypass
+                                    trên database replica để duy trì tiến độ dev mà không xin phép CISO.</p>
+                                <p><strong>Kế hoạch khắc phục (CAP):</strong> Thu hồi toàn bộ quyền đọc trực tiếp. Khởi
+                                    tạo lại dữ liệu che giấu cho môi trường test. Áp dụng luật tường lửa chặn dải IP dev
+                                    kết nối đến database replica/production. <em>Hạn hoàn thành: 31/07/2026 | Phụ trách:
+                                        Lead DBA & Trưởng bộ phận Dev</em></p>
+                            </div>
+                        </div>
+
+                        <!-- Lỗi 3 -->
+                        <div class="accordion-item">
+                            <div class="accordion-header"
+                                onclick="this.nextElementSibling.style.display = this.nextElementSibling.style.display === 'none' ? 'block' : 'none'">
+                                <span>Phát hiện 3: Khóa Master giải mã DB lưu dạng rõ trong file config [Mức độ: Nghiêm
+                                    trọng]</span>
+                                <span>▼</span>
+                            </div>
+                            <div class="accordion-content" style="display:none">
+                                <p style="margin-bottom:10px"><strong>Điểm vi phạm:</strong> ISO 27001 A.8.24 (Mật mã),
+                                    Điều 18 Thông tư 09/2020.</p>
+                                <p style="margin-bottom:10px"><strong>Mô tả thực tế:</strong> Khóa Master giải mã cơ sở
+                                    dữ liệu khách hàng được ghi trực tiếp (plain text) trong tệp cấu hình db_config.ini
+                                    của API Gateway.</p>
+                                <p style="margin-bottom:10px"><strong>Nguyên nhân gốc rễ (RCA):</strong> Thiết kế cổng
+                                    API Gateway cũ chưa tích hợp thư viện gọi API kết nối thiết bị HSM mới; lập trình
+                                    viên cấu hình cứng khóa như biện pháp khắc phục tạm thời và quên gỡ bỏ.</p>
+                                <p><strong>Kế hoạch khắc phục (CAP):</strong> Thực hiện đổi khóa master (re-key) ngay
+                                    trên Oracle cluster. Viết lại hàm API Gateway kết nối xác thực chứng chỉ số gọi khóa
+                                    động từ Luna HSM. Tích hợp GitGuardian quét bí mật trong commit Git. <em>Hạn hoàn
+                                        thành: 31/08/2026 | Phụ trách: Trưởng bộ phận Phát triển</em></p>
+                            </div>
+                        </div>
+
+                        <!-- Lỗi 4 -->
+                        <div class="accordion-item">
+                            <div class="accordion-header"
+                                onclick="this.nextElementSibling.style.display = this.nextElementSibling.style.display === 'none' ? 'block' : 'none'">
+                                <span>Phát hiện 4: Thiếu báo cáo đánh giá diễn tập thảm họa (DRP) cho SWIFT Gateway [Mức
+                                    độ: Cao]</span>
+                                <span>▼</span>
+                            </div>
+                            <div class="accordion-content" style="display:none">
+                                <p style="margin-bottom:10px"><strong>Điểm vi phạm:</strong> ISO 27001 A.5.30 (DRP sẵn
+                                    sàng), Điều 25 Thông tư 09/2020.</p>
+                                <p style="margin-bottom:10px"><strong>Mô tả thực tế:</strong> Ngân hàng không cung cấp
+                                    được báo cáo kết quả diễn tập khôi phục thảm họa (Disaster Recovery) cho hệ thống
+                                    thanh toán quốc tế SWIFT Gateway trong vòng 12 tháng qua.</p>
+                                <p style="margin-bottom:10px"><strong>Nguyên nhân gốc rễ (RCA):</strong> Do hệ thống
+                                    SWIFT nâng cấp phiên bản phần cứng, ban dự án ưu tiên tiến độ kỹ thuật và hoãn lịch
+                                    diễn tập chuyển mạch dự phòng mà không làm thủ tục phê duyệt rủi ro.</p>
+                                <p><strong>Kế hoạch khắc phục (CAP):</strong> Thiết lập lịch diễn tập khôi phục thảm họa
+                                    đặc biệt cho hệ thống SWIFT chuyển site BD dự phòng vào cuối tuần, hoàn thiện báo
+                                    cáo và đệ trình lên Ban chỉ đạo. <em>Hạn hoàn thành: 15/10/2026 | Phụ trách: Trưởng
+                                        nhóm SWIFT & Trưởng nhóm Hạ tầng</em></p>
+                            </div>
+                        </div>
+
+                        <!-- Lỗi 5 -->
+                        <div class="accordion-item">
+                            <div class="accordion-header"
+                                onclick="this.nextElementSibling.style.display = this.nextElementSibling.style.display === 'none' ? 'block' : 'none'">
+                                <span>Phát hiện 5: Hệ điều hành máy trạm giao dịch viên lỗi thời, thiếu bản vá [Mức độ:
+                                    Trung bình]</span>
+                                <span>▼</span>
+                            </div>
+                            <div class="accordion-content" style="display:none">
+                                <p style="margin-bottom:10px"><strong>Điểm vi phạm:</strong> ISO 27001 A.8.9 (Quản lý lỗ
+                                    hổng), Điều 19 Thông tư 09/2020.</p>
+                                <p style="margin-bottom:10px"><strong>Mô tả thực tế:</strong> Kiểm tra ngẫu nhiên 50 máy
+                                    trạm giao dịch viên tại 5 chi nhánh, phát hiện 8 máy vẫn chạy Windows 10 phiên bản
+                                    cũ EOL và thiếu các bản vá an ninh trong 6 tháng qua.</p>
+                                <p style="margin-bottom:10px"><strong>Nguyên nhân gốc rễ (RCA):</strong> Máy trạm thuộc
+                                    chi nhánh tỉnh có kết nối WAN yếu, tải bản vá từ SCCM trung tâm liên tục bị lỗi và
+                                    hệ thống tự động bỏ qua.</p>
+                                <p><strong>Kế hoạch khắc phục (CAP):</strong> Thực hiện nâng cấp thủ công OS cho 8 máy
+                                    phát hiện lỗi, cấu hình chính sách SCCM tối ưu hóa truyền tải bản vá qua tính năng
+                                    Peer-to-Peer trong mạng LAN chi nhánh. <em>Hạn hoàn thành: 15/08/2026 | Phụ trách:
+                                        Trưởng phòng IT Helpdesk</em></p>
+                            </div>
+                        </div>
+
+                        <!-- Lỗi 6 -->
+                        <div class="accordion-item">
+                            <div class="accordion-header"
+                                onclick="this.nextElementSibling.style.display = this.nextElementSibling.style.display === 'none' ? 'block' : 'none'">
+                                <span>Phát hiện 6: Chia sẻ thông tin khách hàng cho đối tác bảo hiểm chưa có đồng ý chủ
+                                    động [Mức độ: Cao]</span>
+                                <span>▼</span>
+                            </div>
+                            <div class="accordion-content" style="display:none">
+                                <p style="margin-bottom:10px"><strong>Điểm vi phạm:</strong> Điều 9 & 11 Nghị định
+                                    13/2023/NĐ-CP (Bảo vệ dữ liệu cá nhân).</p>
+                                <p style="margin-bottom:10px"><strong>Mô tả thực tế:</strong> Dữ liệu cá nhân của 1,200
+                                    khách hàng đăng ký vay tiêu dùng được chuyển tự động sang đối tác bảo hiểm khi ô
+                                    đồng ý chia sẻ thông tin trên app được tích chọn mặc định.</p>
+                                <p style="margin-bottom:10px"><strong>Nguyên nhân gốc rễ (RCA):</strong> Thiết kế giao
+                                    diện (UI/UX) do Khối Bán lẻ triển khai ưu tiên tỷ lệ chuyển đổi số, bỏ qua đánh giá
+                                    pháp lý về quy định sự đồng ý tự nguyện và chủ động.</p>
+                                <p><strong>Kế hoạch khắc phục (CAP):</strong> Sửa lỗi giao diện đăng ký, bỏ tính năng tự
+                                    động tích chọn sẵn; gửi thông báo xác nhận lại sự đồng ý cho 1,200 khách hàng đã
+                                    chia sẻ thông tin. <em>Hạn hoàn thành: 31/07/2026 | Phụ trách: Trưởng phòng Phát
+                                        triển Sản phẩm Số & DPO</em></p>
+                            </div>
+                        </div>
+
+                        <!-- Lỗi 7 -->
+                        <div class="accordion-item">
+                            <div class="accordion-header"
+                                onclick="this.nextElementSibling.style.display = this.nextElementSibling.style.display === 'none' ? 'block' : 'none'">
+                                <span>Phát hiện 7: Sử dụng tài khoản dùng chung (shared accounts) quản trị mạng [Mức độ:
+                                    Nghiêm trọng]</span>
+                                <span>▼</span>
+                            </div>
+                            <div class="accordion-content" style="display:none">
+                                <p style="margin-bottom:10px"><strong>Điểm vi phạm:</strong> ISO 27001 A.5.16 (Quản lý
+                                    định danh), Điều 16 Thông tư 09/2020.</p>
+                                <p style="margin-bottom:10px"><strong>Mô tả thực tế:</strong> Tài khoản quản trị mặc
+                                    định "admin" được 4 kỹ sư sử dụng chung để cấu hình Router Core tại trung tâm dữ
+                                    liệu phụ BD, gây mất khả năng truy vết trách nhiệm cá nhân.</p>
+                                <p style="margin-bottom:10px"><strong>Nguyên nhân gốc rễ (RCA):</strong> Chưa tích hợp
+                                    cơ chế xác thực tập trung TACACS+ cho các thiết bị tại Site dự phòng, duy trì tài
+                                    khoản cục bộ để tiện xử lý nhanh.</p>
+                                <p><strong>Kế hoạch khắc phục (CAP):</strong> Vô hiệu hóa tài khoản "admin" mặc định;
+                                    cấu hình tích hợp xác thực TACACS+ kết nối Active Directory bắt buộc đăng nhập định
+                                    danh riêng cho từng kỹ sư. <em>Hạn hoàn thành: 31/08/2026 | Phụ trách: Trưởng nhóm
+                                        Mạng</em></p>
+                            </div>
+                        </div>
+
+                        <!-- Lỗi 8 -->
+                        <div class="accordion-item">
+                            <div class="accordion-header"
+                                onclick="this.nextElementSibling.style.display = this.nextElementSibling.style.display === 'none' ? 'block' : 'none'">
+                                <span>Phát hiện 8: Nhật ký log máy chủ Internet Banking ngừng đẩy về hệ thống SIEM [Mức
+                                    độ: Trung bình]</span>
+                                <span>▼</span>
+                            </div>
+                            <div class="accordion-content" style="display:none">
+                                <p style="margin-bottom:10px"><strong>Điểm vi phạm:</strong> ISO 27001 A.8.19 (Quản lý
+                                    log), Điều 22 Thông tư 09/2020.</p>
+                                <p style="margin-bottom:10px"><strong>Mô tả thực tế:</strong> Nhật ký log vận hành của 2
+                                    máy chủ Apache Web chạy dịch vụ Internet Banking đã ngừng đẩy về Splunk SIEM trong
+                                    vòng 20 ngày qua.</p>
+                                <p style="margin-bottom:10px"><strong>Nguyên nhân gốc rễ (RCA):</strong> Tiến trình
+                                    Forwarder agent trên máy chủ bị crash sau khi ổ cứng hệ thống bị đầy. SOC chưa thiết
+                                    lập cảnh báo tự động phát hiện mất nguồn log (Heartbeat loss).</p>
+                                <p><strong>Kế hoạch khắc phục (CAP):</strong> Khởi động lại agent và giải phóng không
+                                    gian đĩa; thiết lập quy tắc cảnh báo tự động trên Splunk khi bất kỳ máy chủ nào mất
+                                    kết nối log quá 10 phút. <em>Hạn hoàn thành: 10/08/2026 | Phụ trách: Quản lý
+                                        SOC</em></p>
+                            </div>
+                        </div>
+
+                        <!-- Lỗi 9 -->
+                        <div class="accordion-item">
+                            <div class="accordion-header"
+                                onclick="this.nextElementSibling.style.display = this.nextElementSibling.style.display === 'none' ? 'block' : 'none'">
+                                <span>Phát hiện 9: Chậm trễ nộp Hồ sơ đánh giá tác động DPIA lên Cục A05 - Bộ Công an
+                                    [Mức độ: Cao]</span>
+                                <span>▼</span>
+                            </div>
+                            <div class="accordion-content" style="display:none">
+                                <p style="margin-bottom:10px"><strong>Điểm vi phạm:</strong> Điều 38 Nghị định
+                                    13/2023/NĐ-CP.</p>
+                                <p style="margin-bottom:10px"><strong>Mô tả thực tế:</strong> Hệ thống chấm điểm tín
+                                    dụng tự động (AI Credit Scoring) đưa vào vận hành 75 ngày nhưng Hồ sơ DPIA tương ứng
+                                    chưa được gửi báo cáo lên Cục A05 (quá hạn 60 ngày).</p>
+                                <p style="margin-bottom:10px"><strong>Nguyên nhân gốc rễ (RCA):</strong> Thiếu sự phối
+                                    hợp giữa ban phát triển mô hình AI và bộ phận DPO; không thực hiện đánh giá phân
+                                    loại rủi ro quyền riêng tư trước khi golive.</p>
+                                <p><strong>Kế hoạch khắc phục (CAP):</strong> Hoàn thiện hồ sơ DPIA Mẫu số 02 và đệ
+                                    trình khẩn cấp lên Cục A05 - Bộ Công an, bổ sung checklist kiểm duyệt rủi ro bảo mật
+                                    trước khi golive. <em>Hạn hoàn thành: 20/07/2026 | Phụ trách: Nhân sự DPO & Lead AI
+                                        Lab</em></p>
+                            </div>
+                        </div>
+
+                        <!-- Lỗi 10 -->
+                        <div class="accordion-item">
+                            <div class="accordion-header"
+                                onclick="this.nextElementSibling.style.display = this.nextElementSibling.style.display === 'none' ? 'block' : 'none'">
+                                <span>Phát hiện 10: Băng từ sao lưu lưu trữ offsite không đảm bảo an toàn vật lý [Mức
+                                    độ: Trung bình]</span>
+                                <span>▼</span>
+                            </div>
+                            <div class="accordion-content" style="display:none">
+                                <p style="margin-bottom:10px"><strong>Điểm vi phạm:</strong> ISO 27001 A.7.6 (Phương
+                                    tiện lưu trữ), Điều 14 Thông tư 09/2020.</p>
+                                <p style="margin-bottom:10px"><strong>Mô tả thực tế:</strong> 15 băng từ chứa bản sao
+                                    lưu giao dịch lịch sử lưu tại tủ sắt văn phòng Chi nhánh Hà Nội, thiếu hệ thống điều
+                                    hòa kiểm soát nhiệt/ẩm, thiếu hệ thống chữa cháy khí sạch và camera.</p>
+                                <p style="margin-bottom:10px"><strong>Nguyên nhân gốc rễ (RCA):</strong> Tận dụng không
+                                    gian tủ văn phòng cũ làm kho lưu trữ offsite tạm thời để tiết kiệm chi phí thuê kho
+                                    chuyên dụng ngoài DC.</p>
+                                <p><strong>Kế hoạch khắc phục (CAP):</strong> Di dời băng từ về lưu trữ tại két chống
+                                    cháy chuyên dụng trong phòng máy chủ chi nhánh cấp 1; ký hợp đồng dịch vụ lưu trữ an
+                                    toàn với đơn vị lưu trữ chuyên nghiệp bên thứ ba. <em>Hạn hoàn thành: 30/09/2026 |
+                                        Phụ trách: Trưởng chi nhánh HN & Trưởng nhóm IT Infra</em></p>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB 7: PHỎNG VẤN & HỒ SƠ -->
+            <div id="interview" class="tab-content">
+                <div class="section-header">
+                    <h1>Tài Liệu Phỏng Vấn & CV Mẫu</h1>
+                    <div class="section-desc">Các đoạn mô tả CV chuyên nghiệp đạt chuẩn ATS tiếng Việt, các câu chuyện
+                        theo phương pháp STAR mẫu và câu hỏi đáp phỏng vấn.</div>
+                </div>
+
+                <div class="grid-2">
+                    <div class="card">
+                        <h3 class="card-title">Các dòng mô tả kinh nghiệm ghi CV (Ấn để copy)</h3>
+
+                        <div class="copy-box">
+                            <span class="copy-text">Thiết kế và triển khai khung quản trị IT GRC tích hợp hoàn chỉnh cho
+                                ngân hàng thương mại DieuBank quy mô 2.5M+ khách hàng, kết hợp ISO 27001/2/5 với Thông
+                                tư 09, Nghị định 13 và Luật An ninh mạng.</span>
+                            <button class="btn"
+                                onclick="navigator.clipboard.writeText(this.previousElementSibling.innerText); alert('Đã sao chép vào khay nhớ tạm!')">Copy</button>
+                        </div>
+                        <div class="copy-box">
+                            <span class="copy-text">Xây dựng Ma trận Ánh xạ Tuân thủ tích hợp gồm 50 kiểm soát an ninh
+                                quan trọng trải rộng trên 9 miền nghiệp vụ, giúp tối ưu hóa quy trình kiểm tra, giảm 30%
+                                thời gian chuẩn bị hồ sơ kiểm toán.</span>
+                            <button class="btn"
+                                onclick="navigator.clipboard.writeText(this.previousElementSibling.innerText); alert('Đã sao chép vào khay nhớ tạm!')">Copy</button>
+                        </div>
+                        <div class="copy-box">
+                            <span class="copy-text">Thực hiện đánh giá rủi ro công nghệ theo tiêu chuẩn ISO 27005 cho 30
+                                kịch bản rủi ro thực tế, thiết lập các kế hoạch khắc phục để đưa điểm rủi ro còn lại về
+                                ngưỡng an toàn.</span>
+                            <button class="btn"
+                                onclick="navigator.clipboard.writeText(this.previousElementSibling.innerText); alert('Đã sao chép vào khay nhớ tạm!')">Copy</button>
+                        </div>
+                        <div class="copy-box">
+                            <span class="copy-text">Thiết lập quy chuẩn SOC và soạn thảo 20 quy tắc dò tìm Splunk SIEM
+                                để giám sát thời gian thực các hành vi leo thang đặc quyền, di chuyển ngang và xuất file
+                                trái phép.</span>
+                            <button class="btn"
+                                onclick="navigator.clipboard.writeText(this.previousElementSibling.innerText); alert('Đã sao chép vào khay nhớ tạm!')">Copy</button>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <h3 class="card-title">Cẩm nang Tình huống Phỏng vấn STAR</h3>
+                        <div class="accordion">
+
+                            <div class="accordion-item">
+                                <div class="accordion-header"
+                                    onclick="this.nextElementSibling.style.display = this.nextElementSibling.style.display === 'none' ? 'block' : 'none'">
+                                    <span>Tình huống 1: Triển khai Nghị định 13 bảo vệ dữ liệu</span>
+                                    <span>▼</span>
+                                </div>
+                                <div class="accordion-content" style="display:none">
+                                    <p><strong>S (Tình huống):</strong> Ngân hàng bắt buộc phải tuân thủ Nghị định 13
+                                        mới về bảo vệ dữ liệu cá nhân khách hàng để tránh rủi ro pháp lý bị dừng hoạt
+                                        động hoặc phạt 5% doanh thu.</p>
+                                    <p><strong>T (Nhiệm vụ):</strong> Thiết kế khung bảo vệ dữ liệu, lập hồ sơ DPIA gửi
+                                        Bộ Công an và ánh xạ các kiểm soát bảo mật riêng tư vào khung ISO 27001 hiện tại
+                                        của ngân hàng.</p>
+                                    <p><strong>A (Hành động):</strong> Lập ma trận 50 kiểm soát ánh xạ sang Nghị định
+                                        13; thiết lập cơ chế dynamic data masking trên màn hình quầy giao dịch; lập hồ
+                                        sơ đánh giá tác động DPIA chi tiết nộp lên Cục An ninh mạng (A05).</p>
+                                    <p><strong>R (Kết quả):</strong> Vượt qua đợt kiểm tra tuân thủ dữ liệu cá nhân của
+                                        Bộ Công an với tỷ lệ Đạt 100%, không phát sinh lỗi hay phạt tiền hành chính.</p>
+                                </div>
+                            </div>
+
+                            <div class="accordion-item">
+                                <div class="accordion-header"
+                                    onclick="this.nextElementSibling.style.display = this.nextElementSibling.style.display === 'none' ? 'block' : 'none'">
+                                    <span>Tình huống 2: Đánh giá Rủi ro Ransomware trên hệ thống Core</span>
+                                    <span>▼</span>
+                                </div>
+                                <div class="accordion-content" style="display:none">
+                                    <p><strong>S (Tình huống):</strong> Máy chủ database Core T24 chạy OS lỗi thời gặp
+                                        lỗ hổng lớn, đe dọa bị mã hóa tống tiền gây ngưng giao dịch (Rủi ro tiềm tàng:
+                                        Cao - điểm 15).</p>
+                                    <p><strong>T (Nhiệm vụ):</strong> Chạy phân tích rủi ro theo tiêu chuẩn ISO 27005 và
+                                        thực hiện dự án giảm thiểu rủi ro còn lại về mức rủi ro chấp nhận được.</p>
+                                    <p><strong>A (Hành động):</strong> Phối hợp cài agent CrowdStrike EDR bảo vệ; thiết
+                                        lập mạng phân vùng biệt lập; triển khai hệ thống lưu trữ backup offline bất biến
+                                        (immutable backup).</p>
+                                    <p><strong>R (Kết quả):</strong> Rủi ro còn lại giảm về mức 5 (Trung bình). Diễn tập
+                                        DR thảm họa phục hồi database T24 sạch mã độc thành công trong 3 giờ 20 phút
+                                        (vượt mục tiêu RTO < 4 giờ).</p>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+    <script src="app.js"></script>
+</body>
+
+</html>

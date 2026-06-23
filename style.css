@@ -1,0 +1,754 @@
+/* style.css - Saigon Pioneer Bank (SPB) GRC Interactive Dashboard Design System */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap');
+
+:root {
+    /* Colors */
+    --bg-dark: #070a13;
+    --bg-card: rgba(15, 23, 42, 0.65);
+    --border: rgba(255, 255, 255, 0.06);
+    --border-hover: rgba(6, 182, 212, 0.3);
+    
+    --primary: #06b6d4;      /* Cyan - Security Tech */
+    --primary-hover: #0891b2;
+    --success: #10b981;      /* Emerald - Compliance / Pass */
+    --warning: #f59e0b;      /* Amber - Warning / High Risk */
+    --coral: #f43f5e;        /* Rose/Coral - Critical / Threat */
+    --info: #3b82f6;         /* Blue - Info */
+    
+    --text: #f1f5f9;
+    --text-secondary: #64748b;
+    --text-muted: #475569;
+    
+    /* Fonts */
+    --font-body: 'Inter', sans-serif;
+    --font-header: 'Outfit', sans-serif;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: var(--bg-dark);
+    background-image: 
+        radial-gradient(at 0% 0%, rgba(6, 182, 212, 0.08) 0px, transparent 50%),
+        radial-gradient(at 100% 100%, rgba(16, 185, 129, 0.05) 0px, transparent 50%);
+    background-attachment: fixed;
+    color: var(--text);
+    font-family: var(--font-body);
+    font-size: 15px;
+    line-height: 1.6;
+    overflow-x: hidden;
+}
+
+/* ==========================================
+   LAYOUT STRUCTURE
+   ========================================== */
+
+#app-container {
+    display: flex;
+    min-height: 100vh;
+}
+
+/* --- SIDEBAR --- */
+aside {
+    width: 280px;
+    background: rgba(11, 15, 30, 0.85);
+    backdrop-filter: blur(12px);
+    border-right: 1px solid var(--border);
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    height: 100vh;
+    z-index: 100;
+}
+
+.brand-section {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 32px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--border);
+}
+
+.brand-logo {
+    width: 38px;
+    height: 38px;
+    background: linear-gradient(135deg, var(--primary), var(--success));
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-header);
+    font-weight: 800;
+    color: var(--bg-dark);
+    font-size: 18px;
+}
+
+.brand-name {
+    font-family: var(--font-header);
+    font-size: 20px;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    line-height: 1.2;
+}
+
+.brand-subtitle {
+    font-size: 11px;
+    color: var(--primary);
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    font-weight: 600;
+}
+
+.nav-menu {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    flex-grow: 1;
+}
+
+.nav-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    color: var(--text-secondary);
+    font-weight: 500;
+    transition: all 0.2s ease;
+}
+
+.nav-item:hover {
+    color: var(--text);
+    background: rgba(255, 255, 255, 0.03);
+}
+
+.nav-item.active {
+    color: var(--bg-dark);
+    background: linear-gradient(90deg, var(--primary), #06b6d4ee);
+    font-weight: 600;
+    box-shadow: 0 0 15px rgba(6, 182, 212, 0.3);
+}
+
+.nav-item-icon {
+    font-size: 18px;
+}
+
+.sidebar-footer {
+    font-size: 11px;
+    color: var(--text-muted);
+    text-align: center;
+    border-top: 1px solid var(--border);
+    padding-top: 16px;
+}
+
+/* --- MAIN WORKSPACE --- */
+main {
+    margin-left: 280px;
+    flex-grow: 1;
+    padding: 40px;
+}
+
+/* ==========================================
+   TAB ROUTING CONTROLS
+   ========================================== */
+
+.tab-content {
+    display: none;
+    animation: fadeIn 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.tab-content.active {
+    display: block;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* ==========================================
+   REUSABLE WEB DESIGN COMPONENTS
+   ========================================== */
+
+h1, h2, h3, h4 {
+    font-family: var(--font-header);
+    color: var(--text);
+}
+
+h1 { font-size: 32px; font-weight: 700; margin-bottom: 8px; }
+h2 { font-size: 24px; font-weight: 600; margin-bottom: 24px; }
+h3 { font-size: 18px; font-weight: 600; margin-bottom: 16px; }
+
+.section-header {
+    margin-bottom: 32px;
+}
+
+.section-desc {
+    color: var(--text-secondary);
+    font-size: 16px;
+}
+
+/* --- CARDS (GLASSMORPHISM) --- */
+.card {
+    background: var(--bg-card);
+    backdrop-filter: blur(16px);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 24px;
+    margin-bottom: 24px;
+    transition: border-color 0.3s ease;
+}
+
+.card:hover {
+    border-color: var(--border-hover);
+}
+
+.card-title {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--text-secondary);
+    margin-bottom: 16px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+/* --- GRIDS --- */
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+.grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+.grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; }
+
+/* --- BADGES & STATUSES --- */
+.badge {
+    display: inline-block;
+    padding: 4px 8px;
+    font-size: 11px;
+    font-weight: 600;
+    border-radius: 4px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+.badge-danger { background: rgba(244, 63, 94, 0.15); color: var(--coral); }
+.badge-warning { background: rgba(245, 158, 11, 0.15); color: var(--warning); }
+.badge-success { background: rgba(16, 185, 129, 0.15); color: var(--success); }
+.badge-info { background: rgba(59, 130, 246, 0.15); color: var(--info); }
+
+/* --- FORMS & INPUTS --- */
+.search-input {
+    width: 100%;
+    background: rgba(15, 23, 42, 0.8);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 12px 16px;
+    color: var(--text);
+    font-family: var(--font-body);
+    font-size: 15px;
+    transition: all 0.3s ease;
+    margin-bottom: 20px;
+}
+
+.search-input:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 10px rgba(6, 182, 212, 0.15);
+}
+
+.btn {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--border);
+    color: var(--text);
+    padding: 8px 16px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: all 0.2s ease;
+}
+
+.btn:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: var(--text-secondary);
+}
+
+.btn-primary {
+    background: var(--primary);
+    border-color: var(--primary);
+    color: var(--bg-dark);
+    font-weight: 600;
+}
+
+.btn-primary:hover {
+    background: var(--primary-hover);
+    border-color: var(--primary-hover);
+}
+
+/* ==========================================
+   SPECIFIC COMPONENT STYLE IMPLEMENTATIONS
+   ========================================== */
+
+/* --- CHARTS (DASHBOARD) --- */
+#radial-chart-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 180px;
+}
+
+.radial-svg {
+    width: 150px;
+    height: 150px;
+}
+
+.radial-bar {
+    transform: rotate(-90deg);
+    transform-origin: 50px 50px;
+}
+
+#trend-chart-container {
+    height: 150px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+}
+
+.trend-svg {
+    width: 100%;
+    height: 100px;
+}
+
+.trend-labels {
+    display: flex;
+    justify-content: space-between;
+    font-size: 11px;
+    color: var(--text-secondary);
+    margin-top: 8px;
+    padding: 0 10px;
+}
+
+/* --- STATS CARD WIDGETS --- */
+.stat-box {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.stat-value {
+    font-size: 36px;
+    font-family: var(--font-header);
+    font-weight: 700;
+    line-height: 1.1;
+}
+
+.stat-value-emerald { color: var(--success); }
+.stat-value-coral { color: var(--coral); }
+.stat-value-cyan { color: var(--primary); }
+
+.stat-desc {
+    font-size: 13px;
+    color: var(--text-secondary);
+}
+
+/* --- DATA TABLES (SCROLLABLE & STICKY) --- */
+.table-wrapper {
+    overflow-x: auto;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+    font-size: 14px;
+}
+
+th, td {
+    padding: 14px 16px;
+    border-bottom: 1px solid var(--border);
+}
+
+th {
+    background: rgba(11, 15, 30, 0.9);
+    font-family: var(--font-header);
+    font-weight: 600;
+    color: var(--text);
+    text-transform: uppercase;
+    font-size: 12px;
+    letter-spacing: 0.5px;
+    position: sticky;
+    top: 0;
+}
+
+tr:hover td {
+    background: rgba(255, 255, 255, 0.015);
+}
+
+.font-semibold { font-weight: 600; }
+.text-primary { color: var(--primary); }
+.text-secondary { color: var(--text-secondary); }
+.text-emerald { color: var(--success); }
+.text-coral { color: var(--coral); }
+
+/* --- RISK HEATMAP MATRIX --- */
+#risk-matrix-grid {
+    display: grid;
+    grid-template-columns: 30px repeat(5, 1fr);
+    grid-template-rows: repeat(5, 1fr) 30px;
+    gap: 8px;
+    max-width: 450px;
+    margin: 0 auto;
+}
+
+.matrix-cell {
+    aspect-ratio: 1;
+    border-radius: 6px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+.matrix-cell:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+    z-index: 10;
+}
+
+.cell-low { background: rgba(16, 185, 129, 0.1); color: var(--success); }
+.cell-medium { background: rgba(245, 158, 11, 0.1); color: var(--warning); }
+.cell-high { background: rgba(244, 63, 94, 0.1); color: var(--coral); }
+.cell-critical { background: rgba(244, 63, 94, 0.25); color: #fda4af; }
+
+.cell-count {
+    font-size: 24px;
+    font-family: var(--font-header);
+    font-weight: 700;
+}
+
+.cell-score {
+    font-size: 10px;
+    opacity: 0.6;
+}
+
+.matrix-label-y, .matrix-label-x {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 600;
+    font-family: var(--font-header);
+    color: var(--text-secondary);
+}
+
+.filter-btn-group {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 20px;
+}
+
+.filter-btn, .subtab-btn {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid var(--border);
+    color: var(--text-secondary);
+    padding: 8px 16px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 500;
+    font-size: 14px;
+    transition: all 0.2s ease;
+}
+
+.filter-btn:hover, .subtab-btn:hover {
+    color: var(--text);
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.filter-btn.active, .subtab-btn.active {
+    background: rgba(6, 182, 212, 0.1);
+    color: var(--primary);
+    border-color: var(--primary);
+}
+
+/* --- SIEM RULES VIEW --- */
+.siem-rule-item {
+    background: rgba(11, 15, 30, 0.4);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 16px;
+    margin-bottom: 16px;
+}
+
+.siem-rule-item:hover {
+    border-color: var(--border-hover);
+}
+
+.siem-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+}
+
+.siem-name {
+    font-family: var(--font-header);
+    font-weight: 600;
+    font-size: 16px;
+}
+
+.siem-code-wrapper {
+    background: #030712;
+    border-radius: 6px;
+    padding: 12px;
+    margin-bottom: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.03);
+    overflow-x: auto;
+}
+
+.siem-code {
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 13px;
+    color: #38bdf8;
+    white-space: pre-wrap;
+}
+
+.siem-action {
+    font-size: 13px;
+    color: var(--text-secondary);
+}
+
+/* --- PLAYBOOKS --- */
+.playbook-container {
+    display: grid;
+    grid-template-columns: 260px 1fr;
+    gap: 24px;
+}
+
+.playbook-menu {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.playbook-menu-item {
+    padding: 12px 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid var(--border);
+    color: var(--text-secondary);
+    transition: all 0.2s ease;
+}
+
+.playbook-menu-item:hover {
+    color: var(--text);
+    border-color: var(--text-secondary);
+}
+
+.playbook-menu-item.active {
+    background: rgba(6, 182, 212, 0.08);
+    border-color: var(--primary);
+    color: var(--primary);
+    font-weight: 600;
+}
+
+.playbook-steps {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.playbook-step-card {
+    background: rgba(11, 15, 30, 0.3);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 16px;
+    display: flex;
+    gap: 16px;
+    align-items: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.playbook-step-card.active {
+    border-color: var(--primary);
+    box-shadow: 0 0 10px rgba(6, 182, 212, 0.1);
+    background: rgba(6, 182, 212, 0.03);
+}
+
+.playbook-step-card.active .step-num {
+    background: var(--primary);
+    color: var(--bg-dark);
+    font-weight: 700;
+}
+
+.step-num {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-header);
+    font-weight: 600;
+    transition: all 0.2s ease;
+}
+
+.step-content {
+    flex-grow: 1;
+}
+
+.step-title {
+    font-weight: 600;
+    font-size: 15px;
+    margin-bottom: 4px;
+}
+
+.step-desc {
+    font-size: 13px;
+    color: var(--text-secondary);
+}
+
+/* --- FORMS --- */
+.form-group {
+    margin-bottom: 16px;
+}
+
+.form-label {
+    display: block;
+    font-size: 13px;
+    color: var(--text-secondary);
+    margin-bottom: 6px;
+    font-weight: 500;
+}
+
+.form-select, .form-input-text {
+    width: 100%;
+    background: rgba(15, 23, 42, 0.8);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 10px 12px;
+    color: var(--text);
+    font-family: var(--font-body);
+    font-size: 14px;
+    outline: none;
+}
+
+.form-select:focus, .form-input-text:focus {
+    border-color: var(--primary);
+}
+
+#form-response-box {
+    background: rgba(11, 15, 30, 0.9);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 16px;
+    margin-top: 16px;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 13px;
+    line-height: 1.5;
+}
+
+.approval-step {
+    padding-left: 12px;
+    margin-top: 4px;
+}
+
+/* --- COLLAPSIBLE ACCORDIONS --- */
+.accordion {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.accordion-item {
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    background: rgba(11, 15, 30, 0.3);
+    overflow: hidden;
+}
+
+.accordion-header {
+    padding: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.01);
+}
+
+.accordion-header:hover {
+    background: rgba(255, 255, 255, 0.03);
+}
+
+.accordion-content {
+    padding: 16px;
+    border-top: 1px solid var(--border);
+    color: var(--text-secondary);
+    font-size: 14.5px;
+    background: rgba(11, 15, 30, 0.25);
+}
+
+/* --- COPY CLI WIDGET --- */
+.copy-box {
+    display: flex;
+    gap: 8px;
+    background: #030712;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 8px 12px;
+    align-items: center;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 13px;
+    margin-bottom: 12px;
+}
+
+.copy-text {
+    flex-grow: 1;
+    color: #38bdf8;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* ==========================================
+   SCROLLBAR & SELECTION CUSTOMS
+   ========================================== */
+
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--bg-dark);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--text-muted);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--text-secondary);
+}
+
+::selection {
+    background: rgba(6, 182, 212, 0.2);
+    color: var(--primary);
+}
